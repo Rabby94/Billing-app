@@ -6,36 +6,41 @@ export default function Billing() {
 
   // State..
   const [foodItem, setFoodItem] = useState({});
+  const [carts, setCarts] = useState([]);
 
   const foodItems = [
-    { id: 101, name: "sanduice", cost: 150, quentity:1 },
-    {name:"Burger", id:102, cost:450 ,quentity:1},
-    {name:"Pizza", id:103, cost:500 ,quentity:1},
-    {name:"Popcorn", id:104, cost:50 ,quentity:1 },
-    {name:"Kabab", id:105, cost:200 ,quentity:1},
-    {name:"Fried Chicken", id:106, cost:300 ,quentity:1},
-    {name:"Soda", id:107, cost:100  ,quentity:1},
-    {name:"Ice Crram", id:108, cost:80 ,quentity:1},
-    {name:"Tea", id:109, cost:20 ,quentity:1},
+    { id: 101, name: "Sanduice", cost: 150, quentity: 1 },
+    { id: 102, name: "Burger",  cost: 450, quentity: 1 },
+    { id: 103, name: "Pizza", cost: 500, quentity: 1 },
+    { id: 104, name: "Popcorn", cost: 50, quentity: 1 },
+    { id: 105, name: "Kabab", cost: 200, quentity: 1 },
+    { id: 106, name: "Fried Chicken", cost: 300, quentity: 1 },
+    { id: 107, name: "Soda", cost: 100, quentity: 1 },
+    { id: 108, name: "Ice Crram", cost: 80, quentity: 1 },
+    { id: 109, name: "Tea", cost: 20, quentity: 1 },
   ]
-
   
-//  HandalSelect
-
-
-  // handalAdd
-  const HandleChange=({target})=>{
-    console.log(target.value);
-    let selectFood= foodItems.find(item => item.id === Number(target.value));
-    setFoodItem(selectFood);
-   
+  // handalSelect
+  const handalSelect=({target})=>{
+     let selectFood= foodItems.find( item => item.id === Number(target.value) );
+     setFoodItem(selectFood);
   }
-
+ 
+  const handalAdd = ()=> {
+    let itemList
+    if (carts.includes(foodItem)){
+    }
+    else{
+    itemList= [...carts ,foodItem]
+    }
+    setCarts(itemList);
+  }
 
   return (
     <div className="container">
       <div className="row mt-5 d-flex  justify-content-center align-items-center">
         <div className="col-8 shadow-lg bg-body rounded border border-primary border-2 py-3">
+
           <div className="row">
             <div className="col-5">
               <label 
@@ -48,20 +53,22 @@ export default function Billing() {
                 className="form-select border-1 border-danger shadow-none fs-5"
                 id="item"
                 name="test"
-                onChange={HandleChange}
+                onChange={handalSelect}
                 >
-                  {foodItems.map((item) =>
+                  {foodItems.map(item =>
                     <option key={item.id} value={item.id}>{item.name}</option>
                   )}
              </select>
              <button 
               className="mt-2 btn btn-primary px-4 py-2 fs-4"
-              // onClick={handalAdd}
+              onClick={handalAdd}
               >Add card
             </button>
             </div>
           </div>
-          <ItemTabil/>
+            {
+            carts.length ? <ItemTabil carts={carts}  setCarts = {setCarts} /> :null
+            }
         </div>
       </div>
     </div>

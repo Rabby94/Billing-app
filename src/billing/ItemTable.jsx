@@ -1,21 +1,40 @@
 import React from 'react'
 
-const ItemTable = () => {
+const ItemTable = ({carts,setCarts}) => {
   return (
     <div style={{height:"200px"}}>
         
-        <table class="table mt-4" >
+        <table className="table mt-4" >
   <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+    <tr className='fs-5'>
+      <th scope="col">No</th>
+      <th scope="col"> Food Name </th>
+      <th scope="col">  Cost </th>
+      <th scope="col">quntity</th>
     </tr>
   </thead>
-
-  <tbody>
-  </tbody>
+  <tbody >
+ {
+  carts.map((item ,index)=>
+    <tr 
+    key ={index}>
+      <td>
+        {index+1}
+      </td>
+      <td>
+        {item.name}
+      </td>
+      <td>
+        {item.cost}
+      </td>
+      <td>
+       <button>-</button>
+        <span className='badge mx-2 bg-primary p-2 '>{item.quentity}</span>
+       <button>+</button>
+      </td>
+    </tr>
+)}
+ </tbody>
 </table>
     </div>
   )
